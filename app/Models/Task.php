@@ -9,6 +9,7 @@ class Task extends Model
 {
     use HasFactory;
 
+    // Columns that can be mass-assigned
     protected $fillable = [
         'title',
         'description',
