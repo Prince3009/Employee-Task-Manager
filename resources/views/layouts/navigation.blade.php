@@ -34,6 +34,11 @@
                     </x-slot>
 
                     <x-slot name="content">
+                        <!-- Show role in dropdown -->
+                        <div class="block px-4 py-2 text-sm text-gray-600">
+                            Role: <strong>{{ ucfirst(Auth::user()->role) }}</strong>
+                        </div>
+
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
@@ -77,6 +82,9 @@
             <div class="px-4">
                 <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
                 <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                <div class="font-medium text-sm text-gray-500">
+                    Role: <strong>{{ ucfirst(Auth::user()->role) }}</strong>
+                </div>
             </div>
 
             <div class="mt-3 space-y-1">

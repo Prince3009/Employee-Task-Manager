@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -25,8 +26,15 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     
-    // Task management routes (Admin only)
+    // Task management (Admin only)
     Route::resource('tasks', TaskController::class);
+
+    // Admin-only Employee Registration
+    Route::get('/admin/register', [RegisteredUserController::class, 'create'])->name('admin.register');
+    Route::post('/admin/register', [RegisteredUserController::class, 'store'])->name('admin.register.store');
+
+    Route::get('/admin/employees/create', [App\Http\Controllers\AdminController::class, 'showCreateEmployeeForm'])->name('admin.employees.create');
+    Route::post('/admin/employees', [App\Http\Controllers\AdminController::class, 'storeEmployee'])->name('admin.employees.store');
 });
 
 // Employee Routes
